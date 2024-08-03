@@ -6,6 +6,7 @@ var calculatedScore;
 var buttonColors=["red", "blue", "green", "yellow"];
 var level=0;
 var started=false;
+$("#highest-score").text("HIGHEST:" + maxScore);
 
 $(document).keydown(function(){
     if(!started){
