@@ -3,6 +3,19 @@ body {
   background-color: #011F3F;
 }
 
+#score-counter{
+  font-family: 'Press Start 2P';
+  color: #FEF2BF;
+  display: inline;
+  margin: 5%;
+}
+#highest-score{
+  font-family: 'Press Start 2P';
+  color: #FEF2BF;
+  display: inline;
+  margin: 5%;
+}
+
 #level-title {
   font-family: 'Press Start 2P', cursive;
   font-size: 3rem;
