@@ -1,6 +1,8 @@
 userClickedPattern=[];
 var gamePattern=[];
-
+var score= 0; 
+var maxScore = parseInt(localStorage.getItem("simon-max-score")) || 0;  
+var calculatedScore;
 var buttonColors=["red", "blue", "green", "yellow"];
 var level=0;
 var started=false;
@@ -8,10 +10,17 @@ var started=false;
 $(document).keydown(function(){
     if(!started){
         $("#level-title").text("Level "+ level).css("animation-play-state","paused");
+        $("#score-counter").text("SCORE:" + score);
+        $("#highest-score").text("HIGHEST:" + maxScore);
         nextSequence();
         started=true;
     }
 });
+
+function scoreCalculator(){
+    score = score+10;
+    return score;
+}
 
 function checkAnswer(currentLevel){
 if(gamePattern[currentLevel]===userClickedPattern[currentLevel]){
@@ -19,6 +28,12 @@ if(gamePattern[currentLevel]===userClickedPattern[currentLevel]){
         setTimeout(function(){
             nextSequence();
         }, 1000);
+        calculatedScore=scoreCalculator();
+        localStorage.setItem("simon-max-score", Math.max(calculatedScore, maxScore));    
+        maxScore = parseInt(localStorage.getItem("simon-max-score"));  
+        console.log(maxScore);          //to see max score
+        $("#highest-score").text("HIGHEST:" + maxScore);
+    $("#score-counter").text("SCORE:" + calculatedScore);
     }
 }
 else{
@@ -28,7 +43,7 @@ $("body").addClass("game-over");
 setTimeout(function(){
     $("body").removeClass("game-over");;
 }, 200);
-$("h1").text("Game Over, Press Any Key to Restart");
+$("h1").text("Game Over, Press Any Key to Restart").css("animation-play-state","paused");
 startOver();
 }
 }
@@ -37,6 +52,7 @@ function startOver(){
 level=0;
 gamePattern=[];
 started=false;
+    score=0; 
 }
 
 function playSound(name){
